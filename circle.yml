@@ -1,0 +1,22 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t bpthur/exchange-metadata:1.0.0.$CIRCLE_BUILD_NUM .
+    - docker tag bpthur/exchange-metadata:1.0.0.$CIRCLE_BUILD_NUM bpthur/exchange-metadata:latest
+
+test:
+  override:
+    - docker run -d -p 8080:8080 bpthur/exchange-metadata:1.0.0.$CIRCLE_BUILD_NUM; sleep 10
+    - curl --retry 2 --retry-delay 5 -v http://localhost:8080
+
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push bpthur/exchange-metadata
