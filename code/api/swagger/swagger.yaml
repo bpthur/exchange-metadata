@@ -28,7 +28,7 @@ paths:
       parameters:
         - name: name
           in: query
-          description: The Exchange to retrieve
+          description: The name of the exchange to retrieve
           required: false
           type: string
       responses:

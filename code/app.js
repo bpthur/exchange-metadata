@@ -15,13 +15,13 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
   //Swagger UI
   app.use(SwaggerUi(swaggerExpress.runner.swagger));
 
-  // install middleware
+  //Install Swagger Middleware
   swaggerExpress.register(app);
 
   var port = process.env.PORT || 8080;
   app.listen(port);
 
   if (swaggerExpress.runner.swagger.paths['/exchange']) {
-    console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
+    console.log('Try curl http://127.0.0.1:' + port + '/exchange?name=NASDAQ');
   }
 });
