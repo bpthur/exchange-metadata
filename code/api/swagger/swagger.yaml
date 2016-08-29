@@ -18,17 +18,17 @@ consumes:
 produces:
   - application/json
 paths:
-  /hello:
+  /exchange:
     # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+    x-swagger-router-controller: exchange-controller
     get:
-      description: Returns 'Hello' to the caller
+      description: Returns Exchange information to the caller
       # used as the method name of the controller
-      operationId: hello
+      operationId: exchange
       parameters:
         - name: name
           in: query
-          description: The name of the person to whom to say hello
+          description: The Exchange to retrieve
           required: false
           type: string
       responses:
@@ -36,7 +36,7 @@ paths:
           description: Success
           schema:
             # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
+            $ref: "#/definitions/ExchangeResponse"
         # responses may fall through to errors
         default:
           description: Error
@@ -46,7 +46,7 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  HelloWorldResponse:
+  ExchangeResponse:
     required:
       - message
     properties:
